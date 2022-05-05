@@ -1,5 +1,6 @@
 import { Client } from "../structures/Client";
 import { EventOptions } from "../../lib/interfaces/EventOptions";
+import * as WebSocket from "ws";
 
 export class Websocket {
   client: Client;
@@ -15,6 +16,7 @@ export class Websocket {
       );
 
       socket.addEventListener("message", (event) => {
+        console.log(event);
         const message = JSON.parse(event.data);
         if (message.op == 0) {
           const event = this.client.events.find(
