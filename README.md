@@ -13,13 +13,13 @@ client.on("ready", () => {
   console.log("The bot is ready!");
 });
 
-client.login(process.env.TOKEN);
+client.connect(process.env.TOKEN);
 ```
 
 ## Contributors
 - [NorteX](https://github.com/NorteX-dev)
 - [ChrisSch](https://github.com/ChrisSch-dev)
-- [Ghost](https://github.com/idk)
+- [Ghost](https://github.com/Uthsho)
 - [Kangurp](https://github.com/Kangurp)
 
 ## Contributing
