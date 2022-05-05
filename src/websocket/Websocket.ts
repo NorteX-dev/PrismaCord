@@ -1,11 +1,11 @@
-import { Client } from "../structures/Client";
+import { PrismaClient } from "../structures/PrismaClient";
 import { EventOptions } from "../../lib/interfaces/EventOptions";
 import * as WebSocket from "ws";
 
 export class Websocket {
-  client: Client;
+  client: PrismaClient;
 
-  constructor(client: Client) {
+  constructor(client: PrismaClient) {
     this.client = client;
   }
 
@@ -44,8 +44,8 @@ export class Websocket {
                 large_threshold: 250,
                 properties: {
                   $os: "linux",
-                  $browser: "discord.dn",
-                  $device: "discord.dn",
+                  $browser: "prismacord",
+                  $device: "prismacord",
                 },
               },
             })

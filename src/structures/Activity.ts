@@ -5,13 +5,13 @@ import { Party } from "./Party";
 import { Assets } from "./Assets";
 import { Secrets } from "./Secrets";
 import { Button } from "./Button";
-import { Client } from "./Client";
+import { PrismaClient } from "./PrismaClient";
 
 /**
  * The Activity of a User's Presence.
  */
 export class Activity {
-  client: Client;
+  client: PrismaClient;
   name: string;
   type: number;
   url?: string;
@@ -28,10 +28,10 @@ export class Activity {
   flags?: number;
   buttons?: Array<Button>;
 
-  constructor(options: ActivityOptions, client: Client) {
+  constructor(options: ActivityOptions, client: PrismaClient) {
     /**
      * The Client.
-     * @type {Client}
+     * @type {PrismaClient}
      */
     this.client = client;
 

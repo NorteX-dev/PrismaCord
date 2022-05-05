@@ -1,4 +1,4 @@
-import { Client } from "./Client";
+import { PrismaClient } from "./PrismaClient";
 import { GuildUser } from "./GuildUser";
 import { User } from "./User";
 import { Role } from "./Role";
@@ -9,7 +9,7 @@ import { Guild } from "./Guild";
 import { MessageOptions } from "../../lib/interfaces/MessageOptions";
 
 export class Message {
-  client!: Client;
+  client!: PrismaClient;
   readonly type: number;
   readonly tts: boolean;
   readonly timestamp: string;
@@ -29,7 +29,7 @@ export class Message {
   readonly attachments: Array<Attachment>;
   readonly guild?: Guild;
 
-  constructor(options: MessageOptions, client: Client) {
+  constructor(options: MessageOptions, client: PrismaClient) {
     this.client = client;
     this.type = options.type;
     this.tts = options.tts;

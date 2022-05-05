@@ -1,12 +1,12 @@
 import { User } from "./User";
 import { Role } from "./Role";
 import { Guild } from "./Guild";
-import { Client } from "./Client";
+import { PrismaClient } from "./PrismaClient";
 import { GuildUserOptions } from "../../lib/interfaces/GuildUserOptions";
 import { GuildUserBanOptions } from "../../lib/interfaces/GuildUserBanOptions";
 
 export class GuildUser extends User {
-  client: Client;
+  client: PrismaClient;
   nickname: string;
   roles: Array<Role>;
   joinedAt: string;
@@ -17,7 +17,7 @@ export class GuildUser extends User {
   permissions?: string;
   guild: Guild;
 
-  constructor(options: GuildUserOptions, client: Client) {
+  constructor(options: GuildUserOptions, client: PrismaClient) {
     super(options, client);
     this.client = client;
     this.nickname = options.nickname;

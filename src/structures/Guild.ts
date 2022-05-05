@@ -7,10 +7,10 @@ import { VoiceState } from "./VoiceState";
 import { Presence } from "./Presence";
 import { WelcomeScreen } from "./WelcomeScreen";
 import { GuildUserResolver } from "../resolvers/GuildUserResolver";
-import { Client } from "./Client";
+import { PrismaClient } from "./PrismaClient";
 
 export class Guild {
-  client: Client;
+  client: PrismaClient;
   id: string;
   name: string;
   icon: string;
@@ -58,7 +58,7 @@ export class Guild {
   welcomeScreen?: WelcomeScreen;
   nsfw: boolean;
 
-  constructor(options: GuildOptions, client: Client) {
+  constructor(options: GuildOptions, client: PrismaClient) {
     this.client = client;
     this.id = options.id;
     this.name = options.name;

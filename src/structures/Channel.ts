@@ -5,14 +5,14 @@ import { Message } from "./Message";
 import { User } from "./User";
 import { ThreadMetadata } from "./ThreadMetadata";
 import { ThreadMember } from "./ThreadMember";
-import { Client } from "./Client";
+import { PrismaClient } from "./PrismaClient";
 import { Embed } from "./Embed";
 
 /**
  * The Class for any Discord Channel.
  */
 export class Channel {
-  client: Client;
+  client: PrismaClient;
   id: string;
   type: number;
   guild?: Guild;
@@ -37,10 +37,10 @@ export class Channel {
   threadMetadata?: ThreadMetadata;
   threadMember?: ThreadMember;
 
-  constructor(options: ChannelOptions, client: Client) {
+  constructor(options: ChannelOptions, client: PrismaClient) {
     /**
      * The Client.
-     * @type {Client}
+     * @type {PrismaClient}
      */
     this.client = client;
 

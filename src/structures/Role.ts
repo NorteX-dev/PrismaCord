@@ -1,11 +1,11 @@
 import { RoleOptions } from "../../lib/interfaces/RoleOptions";
 import { RoleTag } from "./RoleTag";
 import { Guild } from "./Guild";
-import { Client } from "./Client";
+import { PrismaClient } from "./PrismaClient";
 
 export class Role {
   guild: Guild;
-  client: Client;
+  client: PrismaClient;
   id: string;
   name: string;
   color: number;
@@ -16,7 +16,7 @@ export class Role {
   mentionable: boolean;
   tags?: RoleTag;
 
-  constructor(options: RoleOptions, guild: Guild, client: Client) {
+  constructor(options: RoleOptions, guild: Guild, client: PrismaClient) {
     this.guild = guild;
     this.client = client;
     this.id = options.id;

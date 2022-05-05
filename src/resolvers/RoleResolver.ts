@@ -1,4 +1,4 @@
-import { Client } from "../structures/Client";
+import { PrismaClient } from "../structures/PrismaClient";
 import { Role } from "../structures/Role";
 import { RoleTag } from "../structures/RoleTag";
 import { Guild } from "../structures/Guild";
@@ -8,9 +8,9 @@ import { Guild } from "../structures/Guild";
  *
  * @param {any} data
  * @param {Guild} guild
- * @param {Client} client
+ * @param {PrismaClient} client
  */
-export function RoleResolver(data: any, guild: Guild, client: Client) {
+export function RoleResolver(data: any, guild: Guild, client: PrismaClient) {
   return new Role(
     {
       id: data.id,

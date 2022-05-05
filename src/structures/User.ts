@@ -1,9 +1,9 @@
 import { AvatarUrlOptions } from "../../lib/interfaces/AvatarURLOptions";
 import { UserOptions } from "../../lib/interfaces/UserOptions";
-import { Client } from "./Client";
+import { PrismaClient } from "./PrismaClient";
 
 export class User {
-  client: Client;
+  client: PrismaClient;
   id: string;
   username: string;
   tag: string;
@@ -18,7 +18,7 @@ export class User {
   premiumType?: number;
   publicFlags?: number;
 
-  constructor(options: UserOptions, client: Client) {
+  constructor(options: UserOptions, client: PrismaClient) {
     this.client = client;
     this.id = options.id;
     this.username = options.username;

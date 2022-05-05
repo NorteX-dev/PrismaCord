@@ -1,10 +1,10 @@
-import { Client } from "./Client";
+import { PrismaClient } from "./PrismaClient";
 import { User } from "./User";
 import { ClientUserResolver } from "../resolvers/ClientUserResolver";
 import { UserOptions } from "../../lib/interfaces/UserOptions";
 
 export class ClientUser extends User {
-  constructor(options: UserOptions, client: Client) {
+  constructor(options: UserOptions, client: PrismaClient) {
     super(options, client);
   }
 

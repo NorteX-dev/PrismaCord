@@ -5,37 +5,33 @@ import { Websocket } from "../websocket/Websocket";
 import { ClientUser } from "./ClientUser";
 import { ClientUserResolver } from "../resolvers/ClientUserResolver";
 import { UserResolver } from "../resolvers/UserResolver";
+import { EventEmitter } from "events";
+import { LoginError } from "../errors/LoginError";
 
 /**
  * Starting point of any bot.
  */
-export class Client {
-  disableEveryone: boolean;
-  disableHere: boolean;
+export class PrismaClient extends EventEmitter {
   token: string | undefined;
   cache: boolean;
   socket: Websocket;
   events: Array<EventOptions>;
   api: APIManager;
-  me: ClientUser;
+  user: ClientUser;
   /**
    * Options for the bot.
-   * @param {ClientOptions}
    * @example
-   * const client = new Client({
-   *     disableEveryone: true,
-   *     disableHere: true
-   * });
+   * const client = new PrismaClient();
+   * @param options {ClientOptions}
    */
   constructor(options: ClientOptions = {}) {
+    super();
     // User defined
     this.token = options.token;
-    this.disableEveryone = !!options.disableEveryone;
-    this.disableHere = !!options.disableHere;
     this.cache = !!options.cache;
 
     // Private
-    this.me = new ClientUser(
+    this.user = new ClientUser(
       { id: "", username: "", tag: "", avatar: "", bot: true },
       this
     );
@@ -46,33 +42,26 @@ export class Client {
 
   /**
    * Logs the client to Discord using a websocket connection.
-   * @returns {Promise<LoginResult>}
+   * @returns {Promise<boolean>}
    * @example client.login('token');
    */
-  public async login(token: string) {
-    return new Promise(async (res, rej) => {
+  public async connect(token: string) {
+    return new Promise<boolean>(async (res, rej) => {
       if (!token || !token.length) throw new Error("INVALID_TOKEN");
       this.token = token.replace(/^(Bot|Bearer)\s*/i, "");
-      this.me = ClientUserResolver(await this.api.get(`/users/@me`), this);
-      // @ts-expect-error 2322
-      const socketResult: boolean = this.socket
+      this.user = ClientUserResolver(await this.api.get(`/users/@me`), this);
+      await this.socket
         .connect(token)
-        .then(() => res({ websocketConnected: true, token: token }))
-        .catch((err) => rej({ websocketConnected: false, error: err }));
+        .then(() => {
+          this.emit("ready", this.user);
+          res(true);
+        })
+        .catch(() => rej(new LoginError()));
     });
   }
 
-  public registerEvent(eventName: string, callback: Function) {
-    this.events.push({ eventName, callback });
-    return this.events;
-  }
-
-  public unregisterEvent(eventName: string) {
-    this.events = this.events.filter((r) => r.eventName !== eventName);
-    return this.events;
-  }
-
   public async fetchUser(id: string) {
-    return UserResolver(await this.api.get(`/users/${id}`), this);
+    const data = await this.api.get(`/users/${id}`);
+    return UserResolver(data, this);
   }
 }

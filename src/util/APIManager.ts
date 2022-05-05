@@ -1,11 +1,11 @@
-import { Client } from "../structures/Client";
+import { PrismaClient } from "../structures/PrismaClient";
 import { APIParameters } from "../../lib/interfaces/APIParameters";
 export class APIManager {
   private DISCORD_API_BASE: string = "https://discord.com/api/v9";
 
-  private client: Client;
+  private client: PrismaClient;
 
-  constructor(client: Client) {
+  constructor(client: PrismaClient) {
     this.client = client;
   }
 
@@ -20,7 +20,7 @@ export class APIManager {
       })
         .then((d) => d.json())
         .then((response) => res(response))
-        .catch((err) => rej);
+        .catch(rej);
     });
   }
 
@@ -36,7 +36,7 @@ export class APIManager {
       })
         .then((d) => d.json())
         .then((response) => res(response))
-        .catch((err) => rej);
+        .catch(rej);
     });
   }
 
@@ -51,7 +51,7 @@ export class APIManager {
       })
         .then((d) => d.json())
         .then((response) => res(response))
-        .catch((err) => rej);
+        .catch(rej);
     });
   }
 
@@ -67,7 +67,7 @@ export class APIManager {
       })
         .then((d) => d.json())
         .then((response) => res(response))
-        .catch((err) => rej);
+        .catch(rej);
     });
   }
 
@@ -83,7 +83,7 @@ export class APIManager {
       })
         .then((d) => d.json())
         .then((response) => res(response))
-        .catch((err) => rej);
+        .catch(rej);
     });
   }
 }

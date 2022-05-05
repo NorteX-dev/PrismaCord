@@ -1,15 +1,19 @@
 import { GuildUser } from "../structures/GuildUser";
 import { Guild } from "../structures/Guild";
-import { Client } from "../structures/Client";
+import { PrismaClient } from "../structures/PrismaClient";
 
 /**
  * Resolver for GuildUser.
  *
  * @param {any} data
  * @param {Guild} guild
- * @param {Client} client
+ * @param {PrismaClient} client
  */
-export function GuildUserResolver(data: any, guild: Guild, client: Client) {
+export function GuildUserResolver(
+  data: any,
+  guild: Guild,
+  client: PrismaClient
+) {
   return new GuildUser(
     {
       id: data.user!.id,

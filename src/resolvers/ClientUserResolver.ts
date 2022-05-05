@@ -1,13 +1,13 @@
 import { ClientUser } from "../structures/ClientUser";
-import { Client } from "../structures/Client";
+import { PrismaClient } from "../structures/PrismaClient";
 
 /**
  * Resolver for ClientUser.
  *
  * @param {any} data
- * @param {Client} client
+ * @param {PrismaClient} client
  */
-export function ClientUserResolver(data: any, client: Client) {
+export function ClientUserResolver(data: any, client: PrismaClient) {
   return new ClientUser(
     {
       id: data.id,

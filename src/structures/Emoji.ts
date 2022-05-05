@@ -1,10 +1,10 @@
 import { EmojiOptions } from "../../lib/interfaces/EmojiOptions";
 import { Role } from "./Role";
 import { User } from "./User";
-import { Client } from "./Client";
+import { PrismaClient } from "./PrismaClient";
 
 export class Emoji {
-  client: Client;
+  client: PrismaClient;
   id: string;
   name: string;
   roles?: Array<Role>;
@@ -14,7 +14,7 @@ export class Emoji {
   animated?: boolean;
   available?: boolean;
 
-  constructor(options: EmojiOptions, client: Client) {
+  constructor(options: EmojiOptions, client: PrismaClient) {
     this.client = client;
     this.id = options.id;
     this.name = options.name;
