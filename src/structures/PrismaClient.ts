@@ -14,8 +14,9 @@ import { LoginError } from "../errors/LoginError";
 export class PrismaClient extends EventEmitter {
   token: string | undefined;
   cache: boolean;
+  intents: string[];
   socket: Websocket;
-  events: Array<EventOptions>;
+  events: EventOptions[];
   api: APIManager;
   user: ClientUser;
   /**
@@ -24,11 +25,12 @@ export class PrismaClient extends EventEmitter {
    * const client = new PrismaClient();
    * @param options {ClientOptions}
    */
-  constructor(options: ClientOptions = {}) {
+  constructor(options: ClientOptions = { intents: [] }) {
     super();
     // User defined
     this.token = options.token;
     this.cache = !!options.cache;
+    this.intents = options.intents;
 
     // Private
     this.user = new ClientUser(
@@ -36,8 +38,8 @@ export class PrismaClient extends EventEmitter {
       this
     );
     this.socket = new Websocket(this);
-    this.events = [];
     this.api = new APIManager(this);
+    this.events = [];
   }
 
   /**
@@ -53,7 +55,6 @@ export class PrismaClient extends EventEmitter {
       await this.socket
         .connect(token)
         .then(() => {
-          this.emit("ready", this.user);
           res(true);
         })
         .catch(() => rej(new LoginError()));

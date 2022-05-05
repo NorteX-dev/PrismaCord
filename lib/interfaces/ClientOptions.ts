@@ -3,7 +3,7 @@
  */
 export interface ClientOptions {
   token?: string;
-  disableEveryone?: boolean;
-  disableHere?: boolean;
+  // TODO : Change to Intent class
+  intents: string[];
   cache?: boolean;
 }

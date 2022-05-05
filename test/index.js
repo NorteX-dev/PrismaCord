@@ -1,8 +1,11 @@
-const { PrismaCord } = require("../dist/index.js");
-const client = new PrismaCord();
+require("dotenv").config();
+const { PrismaClient } = require("../dist");
+const client = new PrismaClient({ intents: ["GUILDS", "GUILD_MESSAGES"] });
 
 client.on("ready", () => {
-  console.log("Ready!");
+  console.log("Ready in client!");
 });
 
-client.connect("token");
+client.connect(process.env.TEST_TOKEN).catch((e) => {
+  console.error("eeee");
+});
