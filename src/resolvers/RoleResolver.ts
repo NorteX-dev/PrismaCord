@@ -21,6 +21,7 @@ export function RoleResolver(data: any, guild: Guild, client: PrismaClient) {
       mentionable: data.mentionable,
       permissions: data.permissions,
       position: data.position,
+      icon: data.icon,
       tags: new RoleTag({
         botId: data.tag!.bot_id,
         integrationId: data.tag!.integration_id,

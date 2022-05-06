@@ -12,5 +12,6 @@ export interface RoleOptions {
   permissions: string;
   managed: boolean;
   mentionable: boolean;
+  icon: string;
   tags?: RoleTag;
 }

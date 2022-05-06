@@ -14,6 +14,7 @@ export class Role {
   permissions: string;
   managed: boolean;
   mentionable: boolean;
+  icon: string;
   tags?: RoleTag;
 
   constructor(options: RoleOptions, guild: Guild, client: PrismaClient) {
@@ -27,6 +28,7 @@ export class Role {
     this.permissions = options.permissions;
     this.managed = options.managed;
     this.mentionable = options.mentionable;
+    this.icon = options.icon;
     this.tags = options.tags;
   }
 
@@ -40,5 +42,8 @@ export class Role {
   }
   public get mention() {
     return `<@$${this.id}>`;
+  }
+  public get getIcon() {
+    return `${this.icon}`
   }
 }
