@@ -7,7 +7,6 @@ export class Emoji {
   id: string;
   name: string;
   user?: User;
-  requireColons?: boolean;
   managed?: boolean;
   animated?: boolean;
   available?: boolean;
