@@ -19,7 +19,6 @@ export class Guild {
   discoverySplash?: string;
   owner: GuildUser;
   permissions?: string;
-  region: string;
   afkChannel?: Channel;
   afkTimeout?: number;
   widgetEnabled?: boolean;
@@ -68,7 +67,6 @@ export class Guild {
     this.discoverySplash = options.discoverySplash;
     this.owner = options.owner;
     this.permissions = options.permissions;
-    this.region = options.region;
     this.afkChannel =
       options.afkChannel ?? new Channel({ id: "", type: -1 }, this.client);
     this.afkTimeout = options.afkTimeout;
