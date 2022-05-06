@@ -10,7 +10,11 @@ import { Guild } from "../structures/Guild";
  * @param {Guild} guild
  * @param {PrismaClient} client
  */
-export function RoleResolver(data: any, guild: Guild, client: PrismaClient) {
+export function RoleResolver(
+  data: any,
+  guild: Guild,
+  client: PrismaClient
+): Role {
   return new Role(
     {
       id: data.id,
@@ -23,11 +27,10 @@ export function RoleResolver(data: any, guild: Guild, client: PrismaClient) {
       position: data.position,
       icon: data.icon,
       tags: new RoleTag({
-        botId: data.tag!.bot_id,
-        integrationId: data.tag!.integration_id,
-        premiumSubscriber: data.tag!.premium_subscriber,
+        botId: data.tag?.bot_id,
+        integrationId: data.tag?.integration_id,
+        premiumSubscriber: data.tag?.premium_subscriber,
       }),
-      // @ts-ignore
     },
     guild,
     client

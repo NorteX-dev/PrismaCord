@@ -31,6 +31,7 @@ export class Message {
 
   constructor(options: MessageOptions, client: PrismaClient) {
     this.client = client;
+    this.id = options.id;
     this.type = options.type;
     this.tts = options.tts;
     this.timestamp = options.timestamp;
@@ -40,7 +41,6 @@ export class Message {
     this.mentions = options.mentions || [];
     this.mentionRoles = options.mentionRoles || [];
     this.mentionEveryone = options.mentionEveryone;
-    this.id = options.id;
     this.flags = options.flags;
     this.embeds = options.embeds || [];
     this.editedTimestamp = options.editedTimestamp;
