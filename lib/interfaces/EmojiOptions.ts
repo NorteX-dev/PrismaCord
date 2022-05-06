@@ -1,4 +1,3 @@
-import { Role } from "../../src/structures/Role";
 import { User } from "../../src/structures/User";
 
 /**
@@ -7,7 +6,6 @@ import { User } from "../../src/structures/User";
 export interface EmojiOptions {
   id: string;
   name: string;
-  roles?: Array<Role>;
   user?: User;
   requireColons?: boolean;
   managed?: boolean;

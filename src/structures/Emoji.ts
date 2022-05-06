@@ -1,5 +1,4 @@
 import { EmojiOptions } from "../../lib/interfaces/EmojiOptions";
-import { Role } from "./Role";
 import { User } from "./User";
 import { PrismaClient } from "./PrismaClient";
 
@@ -7,7 +6,6 @@ export class Emoji {
   client: PrismaClient;
   id: string;
   name: string;
-  roles?: Array<Role>;
   user?: User;
   requireColons?: boolean;
   managed?: boolean;
@@ -18,7 +16,6 @@ export class Emoji {
     this.client = client;
     this.id = options.id;
     this.name = options.name;
-    this.roles = options.roles || [];
     this.user =
       options.user ||
       new User(
