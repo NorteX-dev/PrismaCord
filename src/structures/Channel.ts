@@ -27,7 +27,6 @@ export class Channel {
   cooldown?: number;
   recipient?: Array<User>;
   icon?: string;
-  owner?: User;
   parentId?: string;
   lastPinTimestamp?: string;
   rtcRegion?: string;
@@ -127,12 +126,6 @@ export class Channel {
      * @type {string | null}
      */
     this.icon = options.icon;
-
-    /**
-     * [TBD]
-     * @type {User | null}
-     */
-    this.owner = options.owner;
 
     /**
      * The ID of the Parent Channel.

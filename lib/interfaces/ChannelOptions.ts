@@ -23,7 +23,6 @@ export interface ChannelOptions {
   cooldown?: number;
   recipient?: Array<User>;
   icon?: string;
-  owner?: User;
   parentId?: string;
   lastPinTimestamp?: string;
   rtcRegion?: string;
