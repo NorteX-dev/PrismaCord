@@ -182,7 +182,12 @@ export class Channel {
      */
     this.threadMember = options.threadMember;
   }
-
+  /**
+   * Returns the Channel Mention
+   */
+  public get mention() {
+    return `<#${this.id}>`
+  }
   /**
    * Sets a new name for a Channel.
    * @param {string} name

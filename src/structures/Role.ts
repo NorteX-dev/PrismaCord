@@ -38,4 +38,7 @@ export class Role {
   public get createdTimestamp(): Date {
     return new Date(this.createdAt);
   }
+  public get mention() {
+    return `<@$${this.id}>`;
+  }
 }
