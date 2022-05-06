@@ -12,7 +12,7 @@ export class APIManager {
   }
 
   get(url: string, params: APIParameters = {}) {
-    return new Promise(async (res, rej) => {
+    return new Promise<any>(async (res, rej) => {
       axios({
         url: this.DISCORD_API_BASE + url,
         method: "GET",
@@ -27,7 +27,7 @@ export class APIManager {
   }
 
   post(url: string, body: object, params?: APIParameters) {
-    return new Promise(async (res, rej) => {
+    return new Promise<any>(async (res, rej) => {
       axios({
         url: this.DISCORD_API_BASE + url,
         method: "POST",
@@ -43,7 +43,7 @@ export class APIManager {
   }
 
   delete(url: string, params?: APIParameters) {
-    return new Promise(async (res, rej) => {
+    return new Promise<any>(async (res, rej) => {
       axios({
         url: this.DISCORD_API_BASE + url,
         method: "DELETE",
@@ -58,7 +58,7 @@ export class APIManager {
   }
 
   patch(url: string, body: object, params?: APIParameters) {
-    return new Promise(async (res, rej) => {
+    return new Promise<any>(async (res, rej) => {
       axios({
         url: this.DISCORD_API_BASE + url,
         method: "PATCH",
@@ -74,7 +74,7 @@ export class APIManager {
   }
 
   put(url: string, body: object, params?: APIParameters) {
-    return new Promise(async (res, rej) => {
+    return new Promise<any>(async (res, rej) => {
       axios({
         url: this.DISCORD_API_BASE + url,
         method: "PUT",

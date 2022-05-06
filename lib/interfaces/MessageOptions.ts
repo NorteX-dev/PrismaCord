@@ -13,6 +13,7 @@ import { Sticker } from "../../src/structures/Sticker";
  * Interface for MessageOptions.
  */
 export interface MessageOptions {
+  id: string;
   type: number;
   tts: boolean;
   timestamp: string;
@@ -23,7 +24,6 @@ export interface MessageOptions {
   mentionRoles?: Array<Role>;
   mentionChannels?: Array<Channel>;
   mentionEveryone: boolean;
-  id: string;
   flags: number;
   embeds?: Array<Embed>;
   editedTimestamp?: string;

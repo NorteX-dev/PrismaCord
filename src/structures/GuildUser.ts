@@ -4,6 +4,7 @@ import { Guild } from "./Guild";
 import { PrismaClient } from "./PrismaClient";
 import { GuildUserOptions } from "../../lib/interfaces/GuildUserOptions";
 import { GuildUserBanOptions } from "../../lib/interfaces/GuildUserBanOptions";
+import { APIError } from "../errors/APIError";
 
 export class GuildUser extends User {
   client: PrismaClient;
@@ -33,35 +34,97 @@ export class GuildUser extends User {
     this.guild = options.guild;
   }
 
-  public setNick(nick: string) {
-    this.client.api.patch(`/guilds/${this.guild.id}/members/${this.id}`, {
-      nick,
+  /**
+   * Set the nickname of the guild user
+   *
+   * @param nickname The nickname to set
+   * @returns {Promise<boolean | APIError>} Returns a promise that resolves to true if the nickname was set, otherwise an APIError
+   **/
+  public setNickname(nickname: string) {
+    return new Promise((res, rej) => {
+      this.client.api
+        .patch(`/guilds/${this.guild.id}/members/${this.id}`, {
+          nick: nickname,
+        })
+        .then((r) => {
+          this.nickname = r.nick;
+          res(true);
+        })
+        .catch((e) => rej(new APIError(e.message)));
     });
-    this.nickname = nick;
   }
 
+  /**
+   * Set the nickname of the guild user
+   *
+   * @param {GuildUserBanOptions} options Options for the ban: {@link GuildUserBanOptions}
+   * @returns {Promise<boolean | APIError>} Returns a promise that resolves to true if the ban is created, otherwise an APIError
+   **/
   public ban(options: GuildUserBanOptions = {}) {
-    this.client.api.put(`/guilds/${this.guild.id}/bans/${this.id}`, {
-      delete_message_days: options.deleteMessageDays ?? 0,
-      reason: options.reason ?? "",
+    return new Promise<boolean | APIError>((res, rej) => {
+      this.client.api
+        .put(`/guilds/${this.guild.id}/bans/${this.id}`, {
+          delete_message_days: options.deleteMessageDays ?? 0,
+          reason: options.reason ?? "",
+        })
+        .then(() => {
+          res(true);
+        })
+        .catch((e) => rej(new APIError(e.message)));
     });
   }
 
   public unban() {
-    this.client.api.delete(`/guilds/${this.guild.id}/bans/${this.id}`);
+    return new Promise<boolean | APIError>((res, rej) => {
+      this.client.api
+        .delete(`/guilds/${this.guild.id}/bans/${this.id}`)
+        .then(() => {
+          res(true);
+        })
+        .catch((e) => rej(new APIError(e.message)));
+    });
   }
 
   public kick() {
-    this.client.api.delete(`/guilds/${this.guild.id}/members/${this.id}`);
+    return new Promise<boolean | APIError>((res, rej) => {
+      this.client.api
+        .delete(`/guilds/${this.guild.id}/members/${this.id}`)
+        .then(() => {
+          res(true);
+        })
+        .catch((e) => rej(new APIError(e.message)));
+    });
   }
+
   public timeout(timeout, reason) {
-    this.client.api.patch(
-      `/guilds/${this.guild.id}/members${this.id}`,
-      {
-        communication_disabled_until: timeout && Date.now() + timeout,
-      },
-      reason
-    );
-    this.communication_disabled_until = timeout && Date.now() + timeout;
+    return new Promise<boolean | APIError>((res, rej) => {
+      this.client.api
+        .patch(
+          `/guilds/${this.guild.id}/members/${this.id}`,
+          {
+            communication_disabled_until: timeout && Date.now() + timeout,
+          },
+          reason
+        )
+        .then(() => {
+          this.communication_disabled_until = timeout && Date.now() + timeout;
+          res(true);
+        })
+        .catch((e) => rej(new APIError(e.message)));
+    });
+  }
+
+  public cancelTimeout() {
+    return new Promise<boolean | APIError>((res, rej) => {
+      this.client.api
+        .patch(`/guilds/${this.guild.id}/members/${this.id}`, {
+          communication_disabled_until: null,
+        })
+        .then(() => {
+          this.communication_disabled_until = null;
+          res(true);
+        })
+        .catch((e) => rej(new APIError(e.message)));
+    });
   }
 }
