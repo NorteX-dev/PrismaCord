@@ -7,7 +7,7 @@
 ## Usage Example
 ```js
 const { PrismaClient } = require("prismacord");
-const client = new PrismaClient();
+const client = new PrismaClient({ intents: ["GUILDS", "GUILD_MESSAGES"] });
 
 client.on("ready", () => {
   console.log("The bot is ready!");
