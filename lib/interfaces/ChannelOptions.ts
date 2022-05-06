@@ -22,7 +22,6 @@ export interface ChannelOptions {
   userLimit?: number;
   cooldown?: number;
   recipient?: Array<User>;
-  icon?: string;
   parentId?: string;
   lastPinTimestamp?: string;
   rtcRegion?: string;

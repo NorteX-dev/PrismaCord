@@ -26,7 +26,6 @@ export class Channel {
   userLimit?: number;
   cooldown?: number;
   recipient?: Array<User>;
-  icon?: string;
   parentId?: string;
   lastPinTimestamp?: string;
   rtcRegion?: string;
@@ -120,12 +119,6 @@ export class Channel {
      * @type {Array<User> | null}
      */
     this.recipient = options.recipient;
-
-    /**
-     * [TBD]
-     * @type {string | null}
-     */
-    this.icon = options.icon;
 
     /**
      * The ID of the Parent Channel.
