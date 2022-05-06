@@ -35,6 +35,7 @@ export function GuildUserResolver(
       boostingSince: data.premium_since,
       deaf: data.deaf,
       mute: data.mute,
+      communication_disabled_until: data.communication_disabled_until,
       pending: data.mute,
       permissions: data.permissions,
       guild: guild,

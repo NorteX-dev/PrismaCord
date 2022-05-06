@@ -24,6 +24,7 @@ export interface GuildUserOptions {
   boostingSince: string;
   deaf: boolean;
   mute: boolean;
+  communication_disabled_until: string;
   pending?: boolean;
   permissions?: string;
   guild: Guild;
