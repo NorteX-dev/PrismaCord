@@ -18,7 +18,6 @@ export interface GuildOptions {
   discoverySplash?: string;
   owner: GuildUser;
   permissions?: string;
-  region: string;
   afkChannel?: Channel;
   afkTimeout?: number;
   widgetEnabled?: boolean;
