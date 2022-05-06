@@ -29,12 +29,12 @@ export class GuildUser extends User {
     this.mute = options.mute;
     this.pending = options.pending;
     this.permissions = options.permissions;
-    this.communication_disabled_until = options.communication_disabled_until
+    this.communication_disabled_until = options.communication_disabled_until;
     this.guild = options.guild;
   }
 
   public setNick(nick: string) {
-    this.client.api.patch(`/guilds/${this.guild.id}/members${this.id}`, {
+    this.client.api.patch(`/guilds/${this.guild.id}/members/${this.id}`, {
       nick,
     });
     this.nickname = nick;
@@ -55,9 +55,13 @@ export class GuildUser extends User {
     this.client.api.delete(`/guilds/${this.guild.id}/members/${this.id}`);
   }
   public timeout(timeout, reason) {
-    this.client.api.patch(`/guilds/${this.guild.id}/members${this.id}`, {
-      communication_disabled_until: timeout && Date.now() + timeout
-    }, reason);
-    this.communication_disabled_until = timeout && Date.now() + timeout
+    this.client.api.patch(
+      `/guilds/${this.guild.id}/members${this.id}`,
+      {
+        communication_disabled_until: timeout && Date.now() + timeout,
+      },
+      reason
+    );
+    this.communication_disabled_until = timeout && Date.now() + timeout;
   }
 }
