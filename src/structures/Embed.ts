@@ -10,8 +10,6 @@ export class Embed {
   private footer?: EmbedOptions.EmbedFooter;
   private image?: EmbedOptions.EmbedImage;
   private thumbnail?: EmbedOptions.EmbedThumbnail;
-  private video?: EmbedOptions.EmbedVideo;
-  private provider?: EmbedOptions.EmbedProvider;
   private author?: EmbedOptions.EmbedAuthor;
   private fields?: Array<EmbedOptions.EmbedField>;
 
@@ -58,21 +56,6 @@ export class Embed {
     return this;
   }
 
-  public setVideo(
-    url: string,
-    proxyUrl?: string,
-    height?: number,
-    width?: number
-  ) {
-    this.thumbnail = { url, proxyUrl, height, width };
-    return this;
-  }
-
-  public setProvider(name?: string, url?: string) {
-    this.provider = { name, url };
-    return this;
-  }
-
   public setAuthor(
     name?: string,
     url?: string,
@@ -107,16 +90,6 @@ export class Embed {
         proxy_url: this.thumbnail?.proxyUrl,
         height: this.thumbnail?.height,
         width: this.thumbnail?.width,
-      },
-      video: {
-        url: this.video?.url,
-        proxy_url: this.video?.proxyUrl,
-        height: this.video?.height,
-        width: this.video?.width,
-      },
-      provider: {
-        name: this.provider?.name,
-        url: this.provider?.url,
       },
       author: {
         name: this.author?.name,

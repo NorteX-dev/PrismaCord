@@ -27,18 +27,6 @@ export interface EmbedThumbnail {
     width?: number;
 };
 
-export interface EmbedVideo {
-    url?: string;
-    proxyUrl?: string;
-    height?: number;
-    width?: number;
-};
-
-export interface EmbedProvider {
-    name?: string;
-    url?: string;
-};
-
 export interface EmbedAuthor {
     name?: string;
     url?: string;
