@@ -16,6 +16,7 @@ client.on("ready", () => {
 client.connect(process.env.TOKEN);
 ```
 
+
 ## Contributors
 - [NorteX](https://github.com/NorteX-dev)
 - [ChrisSch](https://github.com/ChrisSch-dev)
