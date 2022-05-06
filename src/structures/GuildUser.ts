@@ -13,6 +13,7 @@ export class GuildUser extends User {
   boostingSince: string;
   deaf: boolean;
   mute: boolean;
+  communication_disabled_until: string;
   pending?: boolean;
   permissions?: string;
   guild: Guild;
@@ -28,6 +29,7 @@ export class GuildUser extends User {
     this.mute = options.mute;
     this.pending = options.pending;
     this.permissions = options.permissions;
+    this.communication_disabled_until = options.communication_disabled_until
     this.guild = options.guild;
   }
 
@@ -51,5 +53,11 @@ export class GuildUser extends User {
 
   public kick() {
     this.client.api.delete(`/guilds/${this.guild.id}/members/${this.id}`);
+  }
+  public timeout(timeout, reason) {
+    this.client.api.patch(`/guilds/${this.guild.id}/members${this.id}`, {
+      communication_disabled_until: timeout && Date.now() + timeout
+    }, reason);
+    this.communication_disabled_until = timeout && Date.now() + timeout
   }
 }
