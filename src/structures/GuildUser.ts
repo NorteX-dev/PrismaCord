@@ -34,6 +34,16 @@ export class GuildUser extends User {
     this.guild = options.guild;
   }
 
+  public get userJoinedAt(): number {
+    const binary = parseInt(this.id).toString(2);
+
+    return parseInt(binary.slice(0, binary.length - 22),2) + 1420070400000;
+  }
+
+  public get userCreatedTimestamp(): Date {
+    return new Date(this.joinedAt)
+  }
+
   /**
    * Set the nickname of the guild user
    *
