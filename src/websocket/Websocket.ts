@@ -22,20 +22,24 @@ export class Websocket {
 
       ws.on("message", (rawData) => {
         const data = rawData.toString();
-        const message = JSON.parse(data);
-        console.log("Raw message:", JSON.stringify(message));
-        if (message.op == 0) {
+        const event = JSON.parse(data);
+        console.log("Raw message:", JSON.stringify(event));
+        if (event.op == 0) {
           this.client.emit(
             "debug",
-            `Received raw event: ${message.t.toLowerCase()}`
+            `Received raw event: ${event.t.toLowerCase()}`
           );
-          this.client.emit(message.t.toLowerCase(), message.d);
-          ws.send(JSON.stringify(message.d));
-        } else if (message.op == 1) {
+          this.client.emit(event.t.toLowerCase(), event.d);
+          ws.send(JSON.stringify(event.d));
+        } else if (event.op === 1) {
+          // Heartbeat acknowledge
           ws.send(JSON.stringify({ op: 1, d: null }));
-        } else if (message.op == 9) {
-          throw new Error("The session has been invalidated.");
-        } else if (message.op == 10) {
+        } else if (event.op === 9 || event.op === 7) {
+          // Invalid Session
+          // throw new Error("The session has been invalidated.");
+          this.client.emit("debug", "Reconnecting bot.");
+          this.connect(token);
+        } else if (event.op == 10) {
           ws.send(
             JSON.stringify({
               op: 2,
@@ -57,7 +61,7 @@ export class Websocket {
           resolve(true);
           setInterval(
             () => ws.send(JSON.stringify({ op: 1, d: null })),
-            parseInt(message.d.heartbeat_interval)
+            parseInt(event.d.heartbeat_interval)
           );
         }
       });
