@@ -5,7 +5,7 @@ export class Embed {
   private type?: "rich" | "image" | "video" | "gifv" | "article" | "link";
   private description?: string;
   private url?: string;
-  private timestamp?: string;
+  private timestamp?: number;
   private color?: number;
   private footer?: EmbedOptions.EmbedFooter;
   private image?: EmbedOptions.EmbedImage;
@@ -14,15 +14,12 @@ export class Embed {
   private fields?: Array<EmbedOptions.EmbedField>;
 
   constructor(options: EmbedOptions.Embed) {
-    options.color = options.color || "";
     this.title = options.title;
     this.type = options.type || "rich";
     this.description = options.description;
     this.url = options.url;
     this.timestamp = options.timestamp;
-    this.color = options.color.startsWith("#")
-      ? Embed.hexToDecimal(options.color)
-      : parseInt(options.color);
+    this.color = options.color;
     this.fields = [];
   }
 
@@ -66,6 +63,31 @@ export class Embed {
     return this;
   }
 
+  public setColor(color: number) {
+    this.color = color;
+    return this;
+  }
+
+  public setTimestamp(timestamp: number) {
+    this.timestamp = timestamp || Date.now();
+    return this;
+  }
+
+  public setTitle(title: string) {
+    this.title = title;
+    return this;
+  }
+
+  public setURL(url: string) {
+    this.url = url;
+    return this;
+  }
+
+  public setDescription(description: string) {
+    this.description = description;
+    return this;
+  }
+
   public toJSON() {
     return {
       title: this.title,
@@ -105,9 +127,5 @@ export class Embed {
         };
       }),
     };
-  }
-
-  public static hexToDecimal(hex: string) {
-    return parseInt(hex.replace("#", ""), 16);
   }
 }

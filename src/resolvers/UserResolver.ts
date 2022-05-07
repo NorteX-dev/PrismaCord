@@ -18,7 +18,6 @@ export function UserResolver(data: any, client: PrismaClient) {
       system: data.system,
       mfaEnabled: data.mfa_enabled,
       locale: data.locale,
-      email: data.email,
       verified: data.verified,
       flags: data.flags,
       publicFlags: data.public_flags,
