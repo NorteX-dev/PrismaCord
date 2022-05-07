@@ -12,7 +12,6 @@ export class User {
   system?: boolean;
   mfaEnabled?: boolean;
   locale?: string;
-  email?: string;
   verified?: boolean;
   flags?: number;
   premiumType?: number;
@@ -29,7 +28,6 @@ export class User {
     this.locale = options.locale;
     this.flags = options.flags;
     this.mfaEnabled = !!options.mfaEnabled;
-    this.email = options.email;
     this.premiumType = options.premiumType;
     this.verified = !!options.verified;
     this.publicFlags = options.publicFlags;
