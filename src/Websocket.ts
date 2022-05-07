@@ -1,6 +1,6 @@
 import * as WebSocket from "ws";
-import { PrismaClient } from "../structures/PrismaClient";
-import { IntentsBitflagsResolver } from "../resolvers/IntentsBitflagsResolver";
+import { PrismaClient } from "./structures/PrismaClient";
+import { IntentsBitflagsResolver } from "./resolvers/IntentsBitflagsResolver";
 
 export class Websocket {
   client: PrismaClient;
