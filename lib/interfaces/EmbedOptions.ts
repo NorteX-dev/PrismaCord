@@ -3,8 +3,8 @@ export interface Embed {
     type?: "rich" | "image" | "video" | "gifv" | "article" | "link";
     description?: string;
     url?: string;
-    timestamp?: string;
-    color?: string;
+    timestamp?: number;
+    color?: number;
 };
 
 export interface EmbedFooter {
