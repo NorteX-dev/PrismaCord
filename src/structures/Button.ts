@@ -1,8 +1,5 @@
 import { ButtonOptions } from "../../lib/interfaces/ButtonOptions";
 
-/**
- * [TBD]
- */
 export class Button {
   type: number;
   style: number;
@@ -73,6 +70,10 @@ export class Button {
   }
   public setLink(link: string) {
     this.url = link;
+    return this;
+  }
+  public setDisabled(value: boolean) {
+    this.disabled = value;
     return this;
   }
   public toJSON() {
