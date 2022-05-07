@@ -14,7 +14,7 @@ import { LoginError } from "../errors/LoginError";
 export class PrismaClient extends EventEmitter {
   token: string | undefined;
   cache: boolean;
-  intents: string[];
+  intents: string[] | number;
   socket: Websocket;
   events: EventOptions[];
   api: APIManager;
