@@ -23,25 +23,28 @@ export class Websocket {
       ws.on("message", (rawData) => {
         const data = rawData.toString();
         const message = JSON.parse(data);
-        console.log("Raw message:", message);
+        console.log("Raw message:", JSON.stringify(message));
         if (message.op == 0) {
-          console.log("Emitting", message.t.toLowerCase());
+          this.client.emit(
+            "debug",
+            `Received raw event: ${message.t.toLowerCase()}`
+          );
           this.client.emit(message.t.toLowerCase(), message.d);
           ws.send(JSON.stringify(message.d));
         } else if (message.op == 1) {
           ws.send(JSON.stringify({ op: 1, d: null }));
         } else if (message.op == 9) {
-          console.error(
-            `The session has been invalidated\nDetails : ${message}`
-          );
-          reject(new Error("Session invalidated"));
+          throw new Error("The session has been invalidated.");
         } else if (message.op == 10) {
           ws.send(
             JSON.stringify({
               op: 2,
               d: {
                 token: token,
-                intents: IntentsBitflagsResolver.resolve(this.client.intents),
+                intents:
+                  typeof this.client.intents === "number"
+                    ? this.client.intents
+                    : IntentsBitflagsResolver.resolve(this.client.intents),
                 large_threshold: 250,
                 properties: {
                   $os: "linux",
