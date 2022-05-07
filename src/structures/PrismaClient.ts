@@ -25,7 +25,7 @@ export class PrismaClient extends EventEmitter {
    * const client = new PrismaClient();
    * @param options {ClientOptions}
    */
-  constructor(options: ClientOptions = { intents: [] }) {
+  constructor(options: ClientOptions = {}) {
     super();
     // User defined
     this.token = options.token;
