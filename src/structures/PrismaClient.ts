@@ -14,7 +14,7 @@ import { LoginError } from "../errors/LoginError";
 export class PrismaClient extends EventEmitter {
   token: string | undefined;
   cache: boolean;
-  intents: string[];
+  intents: string[] | number;
   socket: Websocket;
   events: EventOptions[];
   api: APIManager;
@@ -25,7 +25,7 @@ export class PrismaClient extends EventEmitter {
    * const client = new PrismaClient();
    * @param options {ClientOptions}
    */
-  constructor(options: ClientOptions = { intents: [] }) {
+  constructor(options: ClientOptions = {}) {
     super();
     // User defined
     this.token = options.token;

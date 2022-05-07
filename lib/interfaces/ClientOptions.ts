@@ -4,6 +4,6 @@
 export interface ClientOptions {
   token?: string;
   // TODO : Change to Intent class
-  intents: string[];
+  intents?: string[] | number;
   cache?: boolean;
 }
