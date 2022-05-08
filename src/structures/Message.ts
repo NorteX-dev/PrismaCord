@@ -60,8 +60,11 @@ export class Message {
     return new Date(this.createdAt);
   }
 
+  // reply function still needs working - ChrisSch
+
   public reply(content: string) {
     if (!this.guild?.id) throw Error("Not a guild message");
+
     return new Promise(async (res, rej) => {
       this.client.api
         .post(`/channels/${this.channel.id}/messages`, {
