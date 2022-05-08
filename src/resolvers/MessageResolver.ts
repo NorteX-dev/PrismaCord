@@ -21,7 +21,6 @@ export function MessageResolver(data: any, client: PrismaClient): Message {
       nonce: data.nonce,
       mentions: data.mentions || [],
       mentionRoles: data.mentionRoles || [],
-      mentionEveryone: data.mentionEveryone,
       flags: data.flags,
       embeds: data.embeds || [],
       editedTimestamp: data.editedTimestamp,

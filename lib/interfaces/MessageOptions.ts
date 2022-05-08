@@ -23,7 +23,6 @@ export interface MessageOptions {
   mentions?: Array<GuildUser>;
   mentionRoles?: Array<Role>;
   mentionChannels?: Array<Channel>;
-  mentionEveryone: boolean;
   flags: number;
   embeds?: Array<Embed>;
   editedTimestamp?: string;

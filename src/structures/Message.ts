@@ -18,7 +18,6 @@ export class Message {
   readonly nonce: string;
   readonly mentions: Array<GuildUser>;
   readonly mentionRoles: Array<Role>;
-  readonly mentionEveryone: boolean;
   readonly id: string;
   readonly flags: number;
   readonly embeds?: Array<Embed>;
@@ -40,7 +39,6 @@ export class Message {
     this.nonce = options.nonce;
     this.mentions = options.mentions || [];
     this.mentionRoles = options.mentionRoles || [];
-    this.mentionEveryone = options.mentionEveryone;
     this.flags = options.flags;
     this.embeds = options.embeds || [];
     this.editedTimestamp = options.editedTimestamp;
