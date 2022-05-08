@@ -26,6 +26,7 @@ export class Message {
   readonly channel: Channel;
   readonly author: GuildUser | User;
   readonly attachments: Array<Attachment>;
+  readonly epheremal: boolean;
   readonly guild?: Guild;
 
   constructor(options: MessageOptions, client: PrismaClient) {
@@ -46,6 +47,7 @@ export class Message {
     this.channel = options.channel;
     this.author = options.author;
     this.attachments = options.attachments || [];
+    this.epheremal = options.ephemeral;
     this.guild = options.guild;
   }
 

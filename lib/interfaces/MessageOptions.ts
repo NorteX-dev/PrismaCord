@@ -32,5 +32,6 @@ export interface MessageOptions {
   attachments?: Array<Attachment>;
   reactions?: Array<Reaction>;
   stickers?: Array<Sticker>;
+  ephemeral?: boolean;
   guild?: Guild;
 }
