@@ -24,4 +24,19 @@ export class Attachment {
         this.width = options.width;
         this.ephemeral = options.emphermeral;
     }
+
+    public toJSON() {
+        return {
+            id: this.id,
+            filename: this.filename,
+            description: this.description,
+            content_type: this.content_type,
+            size: this.size,
+            url: this.url,
+            proxy_url: this.proxy_url,
+            height: this.height,
+            width: this.width,
+            ephemeral: this.ephemeral,
+        }
+    }
 }
