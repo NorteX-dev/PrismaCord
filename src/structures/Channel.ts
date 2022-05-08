@@ -7,6 +7,7 @@ import { ThreadMetadata } from "./ThreadMetadata";
 import { ThreadMember } from "./ThreadMember";
 import { PrismaClient } from "./PrismaClient";
 import { Embed } from "./Embed";
+import { Attachment } from "./Attachment";
 
 /**
  * The Class for any Discord Channel.
@@ -288,12 +289,12 @@ export class Channel {
    * @param {string} content
    * @param {Embed} embed
    */
-  public send(content?: string | Embed) {
-    if (typeof content === "string" && content == "")
-      throw Error("send(): Can't send an empty message");
+  public send(content?: string | Embed | Attachment) {
+    if (typeof content === "string" && content == "") throw Error("send(): Can't send an empty message");
+
     this.client.api.post(
       `/channels/${this.id}/messages`,
-      typeof content === "string" ? { content } : { embed: content?.toJSON() }
+      typeof content === "string" ? { content } : content instanceof Embed ? { embed: content?.toJSON() } : { files: content?.toJSON() }
     );
     // i need to change this to return a message object but i need resolvers for that and im too lazy to make rn so yeahhhhhh
     return this;
