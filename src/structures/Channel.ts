@@ -179,13 +179,18 @@ export class Channel {
    * @param {string} name
    */
   public setName(name: string) {
-    if (!(name.length >= 2 && name.length <= 100))
-      throw Error("Channel name is not between 2-100 characters");
-    this.client.api.patch(`/channels/${this.id}`, {
-      name,
-    });
-    this.name = name;
-    return this;
+    if (!(name.length >= 2 && name.length <= 100)) throw Error("Channel name is not between 2-100 characters");
+
+    return new Promise(async (res, rej) => {
+      this.client.api
+        .patch(`/channels/${this.id}`, {
+          name
+        })
+        .then((response) => {
+          this.name = name;
+          res(response)
+        }).catch(rej)
+    })
   }
 
   /**
@@ -194,11 +199,17 @@ export class Channel {
    */
   public setNSFW(nsfw: boolean) {
     if (this.type != 0) throw new TypeError("Channel does not support NSFW");
-    this.client.api.patch(`/channels/${this.id}`, {
-      nsfw,
-    });
-    this.nsfw = nsfw;
-    return this;
+
+    return new Promise(async (res, rej) => {
+      this.client.api
+        .patch(`/channels/${this.id}`, {
+          nsfw,
+        })
+        .then((response) => {
+          this.nsfw = nsfw;
+          res(response)
+        }).catch(rej)
+    })
   }
 
   /**
@@ -207,11 +218,17 @@ export class Channel {
    */
   public setTopic(topic: string) {
     if (this.type != 0) throw new TypeError("Channel does not support topics");
-    this.client.api.patch(`/channels/${this.id}`, {
-      topic,
-    });
-    this.topic = topic;
-    return this;
+
+    return new Promise(async (res, rej) => {
+      this.client.api
+        .patch(`/channels/${this.id}`, {
+          topic,
+        })
+        .then((response) => {
+          this.topic = topic;
+          res(response)
+        }).catch(rej)
+    })
   }
 
   /**
@@ -219,11 +236,17 @@ export class Channel {
    * @param {number} position
    */
   public setPosition(position: number) {
-    this.client.api.patch(`/channels/${this.id}`, {
-      position,
-    });
-    this.position = position;
-    return this;
+    return new Promise(async (res, rej) => {
+      this.client.api
+        .patch(`/channels/${this.id}`, {
+          position,
+        })
+        .then((response) => {
+          this.position = position;
+          res(response)
+        })
+        .catch(rej)
+    })
   }
 
   /**
@@ -231,13 +254,18 @@ export class Channel {
    * @param {number} rate_limit_per_user
    */
   public setCooldown(rate_limit_per_user: number) {
-    if (this.type != 0)
-      throw new TypeError("Channel does not support cooldowns");
-    this.client.api.patch(`/channels/${this.id}`, {
-      rate_limit_per_user,
-    });
-    this.cooldown = rate_limit_per_user;
-    return this;
+    if (this.type != 0) throw new TypeError("Channel does not support cooldowns");
+
+    return new Promise(async (res, rej) => {
+      this.client.api
+        .patch(`/channels/${this.id}`, {
+          rate_limit_per_user,
+        })
+        .then((response) => {
+          this.cooldown = rate_limit_per_user,
+            res(response)
+        }).catch(rej)
+    })
   }
 
   /**
@@ -246,15 +274,18 @@ export class Channel {
    */
   public setBitrate(bitrate: number) {
     if (this.type != 2) throw TypeError("Channel is not a voice channel");
-    if (bitrate < 8000 || bitrate > 128000)
-      throw TypeError(
-        `Bitrate Value "${bitrate}" is below 8000 or above 128000`
-      );
-    this.client.api.patch(`/channels/${this.id}`, {
-      bitrate,
-    });
-    this.bitrate = bitrate;
-    return this;
+    if (bitrate < 8000 || bitrate > 128000) throw TypeError(`Bitrate Value "${bitrate}" is below 8000 or above 128000`);
+
+    return new Promise(async (res, rej) => {
+      this.client.api
+        .patch(`/channels/${this.id}`, {
+          bitrate,
+        })
+        .then((response) => {
+          this.bitrate = bitrate;
+          res(response)
+        }).catch(rej)
+    })
   }
 
   /**
@@ -264,11 +295,17 @@ export class Channel {
   public setUserLimit(user_limit: number) {
     if (this.type != 2) throw TypeError("Channel is not a voice channel");
     if (user_limit > 99) throw TypeError("User limit is larger than 99");
-    this.client.api.patch(`/channels/${this.id}`, {
-      user_limit,
-    });
-    this.userLimit = user_limit;
-    return this;
+
+    return new Promise(async (res, rej) => {
+      this.client.api
+        .patch(`/channels/${this.id}`, {
+          user_limit,
+        })
+        .then((response) => {
+          this.userLimit = user_limit
+          res(response)
+        }).catch(rej)
+    })
   }
 
   /**
@@ -276,11 +313,17 @@ export class Channel {
    * @param {string} id
    */
   public setCategory(id: string) {
-    this.client.api.patch(`/channels/${this.id}`, {
-      parent_id: id,
-    });
-    this.parentId = id;
-    return this;
+
+    return new Promise(async (res, rej) => {
+      this.client.api
+        .patch(`/channels/${this.id}`, {
+          parent_id: id,
+        })
+        .then((response) => {
+          this.parentId = id;
+          res(response)
+        }).catch(rej)
+    })
   }
 
   /**
@@ -290,28 +333,43 @@ export class Channel {
    */
   public send(value?: SendOption) {
     if (typeof value !== 'object') throw new TypeError(`send(): Content paramater only accepts Objects. Expected objects but received ${typeof value}`)
-
     if (!value.content && !value.embeds?.length && !value.attachments?.length) throw new TypeError(`send(): Either 'content' or 'embeds' or 'attachments' property is required.`)
 
-    this.client.api.post(`/channels/${this.id}/messages`,
-      value
-    );
-
-    return this;
+    return new Promise(async (res, rej) => {
+      this.client.api
+        .post(`/channels/${this.id}/messages`, {
+          value,
+        }).then((response) => {
+          res(response)
+        }).catch(rej)
+    })
   }
 
   /**
    * Triggers the typing indicator in a Channel.
    */
   public triggerTyping() {
-    this.client.api.post(`/channels/${this.id}/typing`, {});
-    return this;
+
+    return new Promise(async (res, rej) => {
+      this.client.api
+        .post(`/channels/${this.id}/typing`, {
+          // .
+        })
+        .then((response) => {
+          res(response)
+        }).catch(rej)
+    })
   }
 
   /**
    * Deletes a Channel.
    */
   public delete() {
-    this.client.api.delete(`/channels/${this.id}`);
+    return new Promise(async (res, rej) => {
+      this.client.api
+        .delete(`/channels/${this.id}`).then((response) => {
+          res(response)
+        }).catch(rej)
+    })
   }
 }
