@@ -7,6 +7,6 @@ import { SelectMenu } from "../../src/structures/SelectMenu";
 export interface SendOption {
     content?: string,
     embeds?: Array<Embed>,
-    files?: Array<Attachment>,
+    attachments?: Array<Attachment>,
     components?: Array<ActionRow|Button|SelectMenu>
 }
