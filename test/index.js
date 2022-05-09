@@ -1,6 +1,6 @@
 require("dotenv").config();
 const { PrismaClient } = require("../dist");
-const client = new PrismaClient({ intents: 513 });
+const client = new PrismaClient({ intents: ["GUILDS", "GUILD_MESSAGES"] });
 
 client.on("ready", async () => {
   console.log("Ready in client!");
