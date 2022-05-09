@@ -291,6 +291,8 @@ export class Channel {
   public send(value?: SendOption) {
     if (typeof value !== 'object') throw new TypeError(`send(): Content paramater only accepts Objects. Expected objects but received ${typeof value}`)
 
+    if (!value.content && !value.embeds?.length && !value.attachments?.length) throw new TypeError(`send(): Either 'content' or 'embeds' or 'attachments' property is required.`)
+
     this.client.api.post(`/channels/${this.id}/messages`,
       value
     );
