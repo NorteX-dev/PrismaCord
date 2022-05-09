@@ -64,7 +64,7 @@ export class Message {
 
   public reply(value?: object) {
     if (!this.guild?.id) throw Error("Not a guild message");
-    if (typeof value !== 'object') throw new TypeError(`reply(): Content paramater only accepts Object. Expected String, but received Objects`)
+    if (typeof value !== 'object') throw new TypeError(`reply(): Content paramater only accepts Object. Expected Objects, but received ${typeof value}`)
 
     return new Promise(async (res, rej) => {
       this.client.api
