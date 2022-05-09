@@ -292,7 +292,7 @@ export class Channel {
     if (typeof value !== 'object') throw new TypeError(`send(): Content paramater only accepts Objects. Expected objects but received ${typeof value}`)
 
     this.client.api.post(`/channels/${this.id}/messages`,
-      { value }
+      value
     );
 
     return this;
