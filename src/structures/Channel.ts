@@ -288,11 +288,11 @@ export class Channel {
    * @param {SendOption} content
    * @param {Embed} embed
    */
-  public send(content?: SendOption) {
-    if (typeof content !== 'object') throw new TypeError(`send(): Content paramater only accepts Objects. Expected objects but received ${typeof content}`)
+  public send(value?: SendOption) {
+    if (typeof value !== 'object') throw new TypeError(`send(): Content paramater only accepts Objects. Expected objects but received ${typeof value}`)
 
     this.client.api.post(`/channels/${this.id}/messages`,
-      { content }
+      { value }
     );
 
     return this;

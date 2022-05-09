@@ -62,23 +62,26 @@ export class Message {
 
   // reply function still needs working - ChrisSch
 
-  public reply(content: string) {
+  public reply(value?: object) {
     if (!this.guild?.id) throw Error("Not a guild message");
+    if (typeof value !== 'object') throw new TypeError(`reply(): Content paramater only accepts Object. Expected String, but received Objects`)
 
     return new Promise(async (res, rej) => {
       this.client.api
-        .post(`/channels/${this.channel.id}/messages`, {
-          content: content,
-          message_reference: {
-            message_id: this.id,
-            channel_id: this.channel.id,
-            // @ts-ignore
-            guild_id: this.guild.id,
-            fail_if_not_exists: false,
+        .post(`/channels/${this.channel.id}/messages`,
+          {
+            value,
+            message_reference: {
+              message_id: this.id,
+              channel_id: this.channel.id,
+              // @ts-ignore
+              guild_id: this.guild.id,
+              fail_if_not_exists: false,
+            }
           },
-        })
+        )
         .then(res)
-        .catch(rej);
-    });
+        .catch(rej)
+    })
   }
 }
