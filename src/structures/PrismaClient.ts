@@ -1,7 +1,7 @@
 import { ClientOptions } from "../../lib/interfaces/ClientOptions";
 import { EventOptions } from "../../lib/interfaces/EventOptions";
 import { APIManager } from "../util/APIManager";
-import { Websocket } from "../websocket/Websocket";
+import { Websocket } from "../Websocket";
 import { ClientUser } from "./ClientUser";
 import { ClientUserResolver } from "../resolvers/ClientUserResolver";
 import { UserResolver } from "../resolvers/UserResolver";

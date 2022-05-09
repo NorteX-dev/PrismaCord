@@ -6,7 +6,7 @@ import { User } from "./User";
 import { ThreadMetadata } from "./ThreadMetadata";
 import { ThreadMember } from "./ThreadMember";
 import { PrismaClient } from "./PrismaClient";
-import { Embed } from "./Embed";
+import { SendOption } from "../../lib/interfaces/SendOption";
 
 /**
  * The Class for any Discord Channel.
@@ -285,17 +285,18 @@ export class Channel {
 
   /**
    * Sends a Message to a Channel.
-   * @param {string} content
+   * @param {SendOption} content
    * @param {Embed} embed
    */
-  public send(content?: string | Embed) {
-    if (typeof content === "string" && content == "")
-      throw Error("send(): Can't send an empty message");
-    this.client.api.post(
-      `/channels/${this.id}/messages`,
-      typeof content === "string" ? { content } : { embed: content?.toJSON() }
+  public send(value?: SendOption) {
+    if (typeof value !== 'object') throw new TypeError(`send(): Content paramater only accepts Objects. Expected objects but received ${typeof value}`)
+
+    if (!value.content && !value.embeds?.length && !value.attachments?.length) throw new TypeError(`send(): Either 'content' or 'embeds' or 'attachments' property is required.`)
+
+    this.client.api.post(`/channels/${this.id}/messages`,
+      value
     );
-    // i need to change this to return a message object but i need resolvers for that and im too lazy to make rn so yeahhhhhh
+
     return this;
   }
 

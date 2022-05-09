@@ -18,7 +18,6 @@ export class Message {
   readonly nonce: string;
   readonly mentions: Array<GuildUser>;
   readonly mentionRoles: Array<Role>;
-  readonly mentionEveryone: boolean;
   readonly id: string;
   readonly flags: number;
   readonly embeds?: Array<Embed>;
@@ -27,6 +26,7 @@ export class Message {
   readonly channel: Channel;
   readonly author: GuildUser | User;
   readonly attachments: Array<Attachment>;
+  readonly epheremal: boolean;
   readonly guild?: Guild;
 
   constructor(options: MessageOptions, client: PrismaClient) {
@@ -40,7 +40,6 @@ export class Message {
     this.nonce = options.nonce;
     this.mentions = options.mentions || [];
     this.mentionRoles = options.mentionRoles || [];
-    this.mentionEveryone = options.mentionEveryone;
     this.flags = options.flags;
     this.embeds = options.embeds || [];
     this.editedTimestamp = options.editedTimestamp;
@@ -48,6 +47,7 @@ export class Message {
     this.channel = options.channel;
     this.author = options.author;
     this.attachments = options.attachments || [];
+    this.epheremal = options.ephemeral;
     this.guild = options.guild;
   }
 
@@ -60,22 +60,28 @@ export class Message {
     return new Date(this.createdAt);
   }
 
-  public reply(content: string) {
+  // reply function still needs working - ChrisSch
+
+  public reply(value?: object) {
     if (!this.guild?.id) throw Error("Not a guild message");
+    if (typeof value !== 'object') throw new TypeError(`reply(): Content paramater only accepts Object. Expected Objects, but received ${typeof value}`)
+
     return new Promise(async (res, rej) => {
       this.client.api
-        .post(`/channels/${this.channel.id}/messages`, {
-          content: content,
-          message_reference: {
-            message_id: this.id,
-            channel_id: this.channel.id,
-            // @ts-ignore
-            guild_id: this.guild.id,
-            fail_if_not_exists: false,
+        .post(`/channels/${this.channel.id}/messages`,
+          {
+            value,
+            message_reference: {
+              message_id: this.id,
+              channel_id: this.channel.id,
+              // @ts-ignore
+              guild_id: this.guild.id,
+              fail_if_not_exists: false,
+            }
           },
-        })
+        )
         .then(res)
-        .catch(rej);
-    });
+        .catch(rej)
+    })
   }
 }

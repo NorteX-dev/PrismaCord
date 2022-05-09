@@ -23,7 +23,6 @@ export interface MessageOptions {
   mentions?: Array<GuildUser>;
   mentionRoles?: Array<Role>;
   mentionChannels?: Array<Channel>;
-  mentionEveryone: boolean;
   flags: number;
   embeds?: Array<Embed>;
   editedTimestamp?: string;
@@ -33,5 +32,6 @@ export interface MessageOptions {
   attachments?: Array<Attachment>;
   reactions?: Array<Reaction>;
   stickers?: Array<Sticker>;
+  ephemeral?: boolean;
   guild?: Guild;
 }
