@@ -6,8 +6,12 @@
   "scripts": {
     "test": "nodemon test/index.js"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "discord",
+    "javascript",
+    "api"
+  ],
+  "author": "NorteX",
   "license": "ISC",
   "devDependencies": {
     "prettier": "^2.6.2",
