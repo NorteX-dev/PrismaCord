@@ -110,13 +110,19 @@ export class Role {
   public setRoleIcon(value) {
     if (this.managed === true) throw new Error(`This role is managed by an intergration!`)
     if (!value) throw new TypeError(`Missing argument "value"`)
+    let e;
+
+    try {
+      e = { icon: new URL(value) }
+    } catch (err) {
+      e = { unicode_emoji: value }
+    }
+    
 
     return new Promise(async (res, rej) => {
       this.client.api
         .patch(`/guilds/${this.guild.id}/roles/${this.id}`, {
-
-          // 
-
+          e
         }).then((response) => {
           this.icon = value;
           res(response)
