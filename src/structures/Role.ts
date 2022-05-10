@@ -46,4 +46,113 @@ export class Role {
   public get getIcon() {
     return `${this.icon}`
   }
+  public setName(name) {
+    if (this.managed === true) throw new Error(`This role is managed by an intergration!`)
+    if (!name) throw new TypeError(`Missing argument "name"`)
+
+    return new Promise(async (res, rej) => {
+      this.client.api
+        .patch(`/guilds/${this.guild.id}/roles/${this.id}`, {
+          name
+        }).then((response) => {
+          this.name = name;
+          res(response)
+        }).catch(rej)
+    })
+  }
+  public setColor(color) {
+    if (this.managed === true) throw new Error(`This role is managed by an intergration!`)
+    if (!color) throw new TypeError(`Missing argument "color"`)
+    if (typeof color !== 'number') throw new TypeError(`Expected number, but received ${typeof color}`)
+
+    return new Promise(async (res, rej) => {
+      this.client.api
+        .patch(`/guilds/${this.guild.id}/roles/${this.id}`, {
+          color
+        }).then((response) => {
+          this.color = color;
+          res(response)
+        }).catch(rej)
+    })
+  }
+  public setHoist(value) {
+    if (this.managed === true) throw new Error(`This role is managed by an intergration!`)
+    if (!value) throw new TypeError(`Missing argument "value"`)
+    if (typeof value !== 'boolean') throw new TypeError(`Expected boolean, but received ${typeof value}`)
+
+    return new Promise(async (res, rej) => {
+      this.client.api
+        .patch(`/guilds/${this.guild.id}/roles/${this.id}`, {
+          hoist: value
+        }).then((response) => {
+          this.hoist = value;
+          res(response);
+        }).catch(rej)
+    })
+  }
+  public setMentionable(value) {
+    if (this.managed === true) throw new Error(`This role is managed by an intergration!`)
+    if (!value) throw new TypeError(`Missing argument "value"`)
+    if (typeof value !== 'boolean') throw new TypeError(`Expected boolean, but received ${typeof value}`)
+
+    return new Promise(async (res, rej) => {
+      this.client.api
+        .patch(`/guilds/${this.guild.id}/roles/${this.id}`, {
+          mentionable: value,
+        }).then((response) => {
+          this.mentionable = value;
+          res(response)
+        }).catch(rej)
+    })
+  }
+  // WIP
+
+  public setRoleIcon(value) {
+    if (this.managed === true) throw new Error(`This role is managed by an intergration!`)
+    if (!value) throw new TypeError(`Missing argument "value"`)
+    let e;
+
+    try {
+      e = { icon: new URL(value) }
+    } catch (err) {
+      e = { unicode_emoji: value }
+    }
+    
+
+    return new Promise(async (res, rej) => {
+      this.client.api
+        .patch(`/guilds/${this.guild.id}/roles/${this.id}`, {
+          e
+        }).then((response) => {
+          this.icon = value;
+          res(response)
+        }).catch(rej)
+    })
+  }
+
+  public setPosition(position) {
+    if (!position) throw new TypeError(`Missing argument "position"`)
+
+    return new Promise(async (res, rej) => {
+      this.client.api
+        .patch(`guilds/${this.guild.id}/roles`, {
+          id: this.id,
+          position
+        }).then((response) => {
+          this.position = position;
+          res(response)
+        }).catch(rej)
+    })
+  }
+
+  public delete() {
+    if (this.managed === true) throw new Error(`This role is managed by an intergration!`)
+
+    return new Promise(async (res, rej) => {
+      this.client.api
+        .delete(`/guilds/${this.guild.id}/roles/${this.id}`, {}).then((response) => {
+          res(response);
+        }).catch(rej)
+    })
+  }
 }
