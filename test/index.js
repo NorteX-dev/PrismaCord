@@ -1,4 +1,6 @@
 require("dotenv").config();
+const logger = require("log4js").getLogger("[default]");
+logger.level = "debug";
 const { PrismaClient } = require("../dist");
 const client = new PrismaClient({ intents: ["GUILDS", "GUILD_MESSAGES"] });
 
@@ -11,7 +13,7 @@ client.on("message_create", (msg) => {
 });
 
 client.on("debug", (debug) => {
-  console.log(debug);
+  logger.debug(debug);
 });
 
 client.connect(process.env.TEST_TOKEN).catch(() => {

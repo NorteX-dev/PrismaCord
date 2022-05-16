@@ -15,7 +15,7 @@ export class PrismaClient extends EventEmitter {
   token: string | undefined;
   cache: boolean;
   intents: string[] | number;
-  socket: Websocket;
+  ws: Websocket;
   events: EventOptions[];
   api: APIManager;
   user: ClientUser;
@@ -37,7 +37,7 @@ export class PrismaClient extends EventEmitter {
       { id: "", username: "", tag: "", avatar: "", bot: true },
       this
     );
-    this.socket = new Websocket(this);
+    this.ws = new Websocket(this);
     this.api = new APIManager(this);
     this.events = [];
   }
@@ -51,8 +51,9 @@ export class PrismaClient extends EventEmitter {
     return new Promise<boolean>(async (res, rej) => {
       if (!token || !token.length) throw new Error("INVALID_TOKEN");
       this.token = token.replace(/^(Bot|Bearer)\s*/i, "");
-      this.user = ClientUserResolver(await this.api.get(`/users/@me`), this);
-      await this.socket
+      const rawUserProfile = await this.api.get(`/users/@me`);
+      this.user = ClientUserResolver(rawUserProfile, this);
+      await this.ws
         .connect(token)
         .then(() => {
           res(true);
