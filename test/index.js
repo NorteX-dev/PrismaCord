@@ -10,8 +10,8 @@ client.on("ready", async () => {
   console.log("Ready in client!");
 });
 
-client.on("message_create", (msg) => {
-  console.log(msg);
+client.on("channelUpdate", (channel) => {
+  console.log(channel);
 });
 
 client.on("debug", (debug) => {
