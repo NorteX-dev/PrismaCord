@@ -2,6 +2,7 @@ import * as WebSocket from "ws";
 import { PrismaClient } from "./structures/PrismaClient";
 import { IntentsResolver } from "./resolvers/IntentsResolver";
 import { EventEmitter } from "events";
+import { WebsocketError } from "./errors/WebsocketError";
 
 enum Opcodes {
   DISPATCH = 0,
@@ -115,8 +116,11 @@ export class Websocket extends EventEmitter {
     return new Promise<void>((resolve) => {
       if (!noDebug) this.client.emit("debug", `Sending heartbeat.`);
       const payload = JSON.stringify({ op: 1, d: this.lastSeq });
-      this.ws.send(payload);
-      resolve();
+      this.ws.send(payload, (err) => {
+        if (err)
+          throw new WebsocketError("Cannot send heartbeat: " + err.message);
+        resolve();
+      });
     });
   }
 
