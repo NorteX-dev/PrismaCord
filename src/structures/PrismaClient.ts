@@ -19,6 +19,8 @@ export class PrismaClient extends EventEmitter {
   events: EventOptions[];
   api: APIManager;
   user: ClientUser;
+  ready?: boolean;
+  readyAt?: Date;
   /**
    * Options for the bot.
    * @example
