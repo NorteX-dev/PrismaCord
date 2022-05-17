@@ -1,4 +1,4 @@
-class IntentsBitflagsResolver {
+class IntentsResolver {
   private static FLAGS = {
     GUILDS: 1 << 0,
     GUILD_MEMBERS: 1 << 1,
@@ -29,4 +29,4 @@ class IntentsBitflagsResolver {
   }
 }
 
-export { IntentsBitflagsResolver };
+export { IntentsResolver };

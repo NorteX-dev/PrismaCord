@@ -1,6 +1,6 @@
 import * as WebSocket from "ws";
 import { PrismaClient } from "./structures/PrismaClient";
-import { IntentsBitflagsResolver } from "./resolvers/IntentsBitflagsResolver";
+import { IntentsResolver } from "./resolvers/IntentsResolver";
 import { EventEmitter } from "events";
 
 enum Opcodes {
@@ -91,7 +91,7 @@ export class Websocket extends EventEmitter {
         d: {
           token: token,
           intents: Array.isArray(this.client.intents)
-            ? IntentsBitflagsResolver.resolve(this.client.intents)
+            ? IntentsResolver.resolve(this.client.intents)
             : this.client.intents,
           large_threshold: 250,
           properties: {

@@ -4,7 +4,7 @@ import { GuildUserResolver } from "./src/resolvers/GuildUserResolver";
 import { MessageResolver } from "./src/resolvers/MessageResolver";
 import { RoleResolver } from "./src/resolvers/RoleResolver";
 import { UserResolver } from "./src/resolvers/UserResolver";
-import { IntentsBitflagsResolver } from "./src/resolvers/IntentsBitflagsResolver";
+import { IntentsResolver } from "./src/resolvers/IntentsResolver";
 
 export {
   // Structures
@@ -15,5 +15,5 @@ export {
   MessageResolver,
   RoleResolver,
   UserResolver,
-  IntentsBitflagsResolver,
+  IntentsResolver,
 };
